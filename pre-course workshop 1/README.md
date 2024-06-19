@@ -6,13 +6,15 @@
 - ```pipenv install tqdm notebook==7.1.2 openai elasticsearch```
 - ```pipenv run jupyter notebook```
 - Install Docker and execute in terminal 
-```docker run -it \
+```
+docker run -it \
     --name elasticsearch \
     -p 9200:9200 \
     -p 9300:9300 \
     -e "discovery.type=single-node" \
     -e "xpack.security.enabled=false" \
-    docker.elastic.co/elasticsearch/elasticsearch:8.4.3```
+    docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+```
 - Check if elastic search setup is successful: ```curl http://localhost:9200```
 - ```pipenv install "langchain[all]"```
 - ```pipenv install python-dotenv```
