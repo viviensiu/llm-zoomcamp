@@ -5,8 +5,7 @@
 - ```pip install pipenv```
 - ```pipenv install tqdm notebook==7.1.2 openai elasticsearch```
 - ```pipenv run jupyter notebook```
-- Install Docker and execute in terminal 
-  ```docker run -it \
+- Install Docker and execute in terminal ```docker run -it \
     --name elasticsearch \
     -p 9200:9200 \
     -p 9300:9300 \
