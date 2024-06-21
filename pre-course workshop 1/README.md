@@ -16,6 +16,8 @@ docker run -it \
     docker.elastic.co/elasticsearch/elasticsearch:8.4.3
 ```
 - Check if elastic search setup is successful: ```curl http://localhost:9200```
+
+## Optional setup to use HuggingFace with LangChain instead of OpenAI
 - ```pipenv install "langchain[all]"```
 - ```pipenv install python-dotenv```
 - ```pipenv install langchain-huggingface```

@@ -9,9 +9,11 @@ notebook = "==7.1.2"
 openai = "*"
 elasticsearch = "*"
 wget = "*"
-langchain = {extras = ["all"], version = "*"}
 python-dotenv = "*"
 langchain-huggingface = "*"
+langchain = {extras = ["all"], version = "*"}
+pandas = "*"
+scikit-learn = "*"
 
 [dev-packages]
 
