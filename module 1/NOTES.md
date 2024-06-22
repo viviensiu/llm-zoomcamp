@@ -27,3 +27,39 @@ Alternatively to reuse the Pipfile established from "pre-course workshop 1", do 
 - the index object is then fitted with the FAQ data. 
 - During search, fields such as "question" and "section" weights are modified with boost to emphasize their relative importance when used to retrieve search results based on queries. The filter can be specified as well to limit search on certain courses only.
 - Query using index.search() together with the boost modifications and return top 5 results.
+
+### 1.4 Generating Answers with OpenAI GPT-4o
+- Goal: Send context from documents to LLM to generate more accurate response.
+- Create a prompt template to accept dynamic query and context before sending to the LLM. Also limits the type of responses LLM can provide.
+- Create context based on the query's search results from index.
+- Modify the prompt template based on the context to create the prompt .
+- Supply the prompt to LLM and generate a response.
+
+### 1.4.2 Exploring alternatives to OpenAI
+A list available [here](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/01-intro/open-ai-alternatives.md)
+
+### 1.5 The RAG Flow Cleaning and Modularizing Code
+- Goal: Clean up and modularise the codes created from earlier sections.
+- search(): Perform a query using index.search() and returns top results.
+- build_prompt(): creates a dynamic prompt template which accepts query and context built from search() result to return a prompt.
+- llm(): returns a LLM response based on prompt.
+- rag(): accepts a query, go through flow search() -> build_prompt() -> llm() and provides an answer to the query.
+
+### 1.6 Replace minsearch with ElasticSearch
+- Goal: replace search() with elastic search
+- Pros: elasticsearch is persistent, while minsearch knowledge base is deleted when notebook shutdown.
+- run the following if elasticsearch is not setup yet:
+```
+docker run -it \
+    --name elasticsearch \
+    -p 9200:9200 \
+    -p 9300:9300 \
+    -e "discovery.type=single-node" \
+    -e "xpack.security.enabled=false" \
+    docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+```
+- test that elasticsearch db is connected using "localhost:9200"
+- create the ES indices. Specify index name, index setting (mapping properties which map to the FAQ document fields, and the search keyword which is the "course" field in FAQ document).
+- create the ES index by indexing each row of document text in documents. Progress is tracked by tqdm.
+- elastic_search(): Based on a query, filter to only search the ES index in course=data-engineering-zoomcamp, then retrieve the top 5 results that  closely match the fields "question", "text", "section". Notice that question has been given thrice the weights.
+- modify the rag() by replacing search() with elastic_search().
