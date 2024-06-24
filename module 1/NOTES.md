@@ -63,3 +63,8 @@ docker run -it \
 - create the ES index by indexing each row of document text in documents. Progress is tracked by tqdm.
 - elastic_search(): Based on a query, filter to only search the ES index in course=data-engineering-zoomcamp, then retrieve the top 5 results that  closely match the fields "question", "text", "section". Notice that question has been given thrice the weights.
 - modify the rag() by replacing search() with elastic_search().
+
+### Homework
+- Link to [homework questions](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2024/01-intro/homework.md)
+- Install requests, tiktoken using ```pipenv install requests tiktoken```
+- Tiktoken Reference: [How to count tokens with tiktoken](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken) 
