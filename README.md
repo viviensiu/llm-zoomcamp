@@ -4,6 +4,7 @@ Repo for my LLM-zoomcamp course materials.
 ## Resources
 - Course repository [here](https://github.com/DataTalksClub/llm-zoomcamp).
 - Course recordings on [YouTube playlist](https://www.youtube.com/playlist?list=PL3MmuxUbc_hIB4fSqLy_0AfTjVLpgjV3R)
+- [Course homework page](https://courses.datatalks.club/llm-zoomcamp-2024/)
 
 ## Setup
 - ```conda create -n llm-zoomcamp-env python```
@@ -13,7 +14,7 @@ Repo for my LLM-zoomcamp course materials.
 
 ## Step by step:
 - Complete the 2 pre-course workshops as stated in course repo under <b>Syllabus</b>. 
-- Complete the 6 modules
+- Complete the 6 modules.
 - Complete the project for certification.
 - Optional: Participate in the Kaggle competition
 

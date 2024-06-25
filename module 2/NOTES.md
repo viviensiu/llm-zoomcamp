@@ -3,8 +3,8 @@
 ### 2.1 Introduction
 Motivation: Replacing OpenAI in Module 1 with open-source LLM
 
-### Using SaturnCloud for GPU Notebooks
-- Goal: Setup SaturnCloud account to have access to their GPU to run open-source LLM.
+### 2.2 Using SaturnCloud for GPU Notebooks
+- Goal: Setup [SaturnCloud](https://saturncloud.io/) account to have access to their GPU to run open-source LLM.
 - [Closed on 25th June 2024] Register for an account with free GPU access at LLM Zoomcamp website.
 - Log on to Saturn Cloud and setup the following:
 1. Secrets: Store your API keys for various oepn-source LLMs here (e.g. HuggingFace API key)
@@ -19,3 +19,7 @@ Motivation: Replacing OpenAI in Module 1 with open-source LLM
 4. Under the newly-created Jupyter server, go to "Secrets and Roles" tab. Click on "Attach Secret Environment Variable" and select the API key which was previously setup in Step 1.
 5. Go to "Overview" tab and click "Start".
 6. Once the server is up, click on "Jupyter Notebook" to start the notebook.
+
+### 2.3 HuggingFace and Google FLAN T5
+- Link to [Google FLAN-T5 XL](https://huggingface.co/google/flan-t5-xl)
+
