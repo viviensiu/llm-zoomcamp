@@ -1,3 +1,6 @@
+## NOTES.md
+See NOTES.md for my module 1 notes.
+
 ## Using HuggingFace and LangChain for LLM alternative
 Instead of OpenAI, I will be using HuggingFace. 
 
