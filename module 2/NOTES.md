@@ -21,5 +21,18 @@ Motivation: Replacing OpenAI in Module 1 with open-source LLM
 6. Once the server is up, click on "Jupyter Notebook" to start the notebook.
 
 ### 2.3 HuggingFace and Google FLAN T5
-- Link to [Google FLAN-T5 XL](https://huggingface.co/google/flan-t5-xl)
+- Create [starter notebook](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/02-open-source/starter.ipynb) locally.
+- Goal: replace the OpenAI model with the FLAN-T5-XL model.
+- Link to [HuggingFace FLAN-T5 XL model page](https://huggingface.co/google/flan-t5-xl)
+- Link to [HuggingFace FLAN-T5 documentation](https://huggingface.co/docs/transformers/en/model_doc/flan-t5)
+- Link to [T5's documentation page](https://huggingface.co/docs/transformers/en/model_doc/t5)
+- Copy the code block under [Running the model on a GPU](https://huggingface.co/google/flan-t5-xl#running-the-model-on-a-gpu)
+- Update env. variable HF_HOME to use a directory with larger storage inside notebook.
+- Import the tokenizer and FLAN-T5-XL model.
+- Modify the llm() to do:
+    1. Format the prompt with query and context.
+    2. Encode prompt with tokenizer.
+    3. FLAN-T5-XL model will generate a encoded response from the encoded prompt.
+    4. Decode the response back into plain text.
+
 
