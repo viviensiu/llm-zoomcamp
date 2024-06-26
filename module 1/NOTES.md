@@ -11,7 +11,7 @@
 - Install Docker
 - run ```pip install tqdm scikit-learn openai notebook==7.1.2 elasticsearch pandas```
 - register for an OpenAI API key at [OpenAI](https://platform.openai.com/docs/), alternatively use an open-source.
-- in terminal, run ```export OPENAI_API_KEY="\<your api key here\>"```
+- in terminal, run ```export OPENAI_API_KEY="<your api key here>"```
 - start jupyter notebook in terminal: ```jupyter notebook```. If it asks for token, copy-paste the token found in terminal.
 
 Alternatively to reuse the Pipfile established from "pre-course workshop 1", do the following:
