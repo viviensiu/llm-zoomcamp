@@ -15,6 +15,7 @@ docker run -it \
     -e "xpack.security.enabled=false" \
     docker.elastic.co/elasticsearch/elasticsearch:8.4.3
 ```
+- [Optional] run the above Docker command with ```-d``` specified to run in detached mode.
 - Check if elastic search setup is successful: ```curl http://localhost:9200```
 
 ## Optional setup to use HuggingFace with LangChain instead of OpenAI
