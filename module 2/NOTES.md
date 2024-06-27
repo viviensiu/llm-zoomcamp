@@ -19,7 +19,7 @@ Motivation: Replacing OpenAI in Module 1 with open-source LLM
     4. Under the newly-created Jupyter server, go to ```"Secrets and Roles"``` tab. Click on ```"Attach Secret Environment Variable"``` and select the API key which was previously setup in Step 1.
     5. Go to "Overview" tab and click "Start".
     6. Once the server is up, click on "Jupyter Notebook" to start the notebook.
-    7. [Optional] If you're accessing source codes from Github repo, you can set this to automatically fetch the latest updates upon restart. Note that changes made in SaturnCloud is not pushed to your Github.
+    7. [Optional] If you're accessing source codes from Github repo, under the Jupyter Server that was created, set ```Git Repos -> Restart Behavior``` to reclone to automatically fetch the latest updates in your Git repo upon restart. Note that changes made in SaturnCloud is not pushed to your Github.
 
 ### 2.3 HuggingFace and Google FLAN T5
 - Create [starter notebook](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/02-open-source/starter.ipynb) locally.
@@ -36,7 +36,7 @@ Motivation: Replacing OpenAI in Module 1 with open-source LLM
     3. FLAN-T5-XL model will generate a encoded response from the encoded prompt.
     4. Decode the response back into plain text.
 
-### 2.4
+### 2.4 Phi 3 Mini
 - Goal: replace the OpenAI model with the Phi3 model.
 - Duplicate the notebook built in 2.3 and modify from there. This helps to retain the env variables setup done previously.
 - Link to [HuggingFace Microsoft Phi3 model page](https://huggingface.co/microsoft/Phi-3-mini-128k-instruct)
@@ -46,8 +46,27 @@ Motivation: Replacing OpenAI in Module 1 with open-source LLM
 - Modify the llm() to do:
     1. Format the prompt with query and context.
     2. Encode prompt with tokenizer.
-    3. FLAN-T5-XL model will generate a encoded response from the encoded prompt.
+    3. Phi3 model will generate a encoded response from the encoded prompt.
     4. Decode the response back into plain text.
+
+### 2.5 Mistral-7B and HuggingFace Hub Authentication
+- Goal: replace the OpenAI model with the Mistral-7B model.
+- Duplicate the notebook built in 2.4 and modify from there. 
+- Link to [HuggingFace Mistral-7B model page](https://huggingface.co/mistralai/Mistral-7B-v0.1)
+- Before you can use this model, you must: 
+    1. Accept the agreement in the [model page](https://huggingface.co/mistralai/Mistral-7B-v0.1).
+    2. Setup a HuggingFace account. Under ```Settings -> Access Tokens```, create a new token, copy the token (should begin with "hf_************")
+    3. Add this to your SaturnCloud account list of secret keys. See Section 2.2 notes.
+- The sample code block for Mistral-7B is taken from [HuggingFace LLM Tutorial](https://huggingface.co/docs/transformers/en/llm_tutorial)
+- Include the HuggingFace token in your code.
+- Import the tokenizer and Mistral-7B model.
+- Modify the llm() to do:
+    1. Format the prompt with query and context.
+    2. Encode prompt with tokenizer.
+    3. Mistral-7B model will generate a encoded response from the encoded prompt.
+    4. Decode the response back into plain text.
+- Note: This model requires authentication and may pose an issue if we want to put it in a container. The other option would be to download the model, save and load it locally so you can skip the authentication. See the note ["Using Mistral-7B Model in Production"](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/02-open-source/serving-hugging-face-models.md) for detailed instructions.
+
 
 ### Other notes
 - To check which type of GPU is used in Saturn Cloud: After starting Jupyter Notebook, click on "New" -> "Terminal". Type in ```nvidia-smi```.
