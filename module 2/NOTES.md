@@ -120,6 +120,38 @@ docker run -it \
 2. Open a new terminal and input ```docker exec -it ollama bash```, then ```ollama pull phi3```
 3. Once Step 2 is done, execute your jupyter notebook as usual.
 
+### 2.8 Ollama + Elastic in Docker Compose
+- Goal: rerun notebook from Module 1 with local LLM using Ollama.
+- create a docker-compose.yaml file to pull and run ollama and elasticsearch containers
+```
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    volumes:
+      - ollama:/root/.ollama
+    ports:
+      - "11434:11434"
+volumes:
+  ollama:
+```
+- In a new terminal, execute ```docker-compose up```
+- In a new terminal and input ```docker exec -it ollama bash```, then ```ollama pull phi3```
+- Copy-paste the rag notebook from Module 1 into Module 2.
+- Modify the following:
+    - Remove minsearch codes.
+    - Modify OpenAI codes with the Ollama codes used in previous lesson 2.7.
 
 ### Other notes
 - To check which type of GPU is used in Saturn Cloud: After starting Jupyter Notebook, click on "New" -> "Terminal". Type in ```nvidia-smi```.
