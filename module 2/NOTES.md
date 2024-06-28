@@ -1,4 +1,5 @@
 ## Module 2: Open-Source LLMs
+All module 2 videos and notebook links can be found [here](https://github.com/DataTalksClub/llm-zoomcamp/tree/main/02-open-source).
 
 ### 2.1 Introduction
 Motivation: Replacing OpenAI in Module 1 with open-source LLM
@@ -67,6 +68,57 @@ Motivation: Replacing OpenAI in Module 1 with open-source LLM
     3. Mistral-7B model will generate a encoded response from the encoded prompt.
     4. Decode the response back into plain text.
 - Note: This model requires authentication and may pose an issue if we want to put it in a container. The other option would be to download the model, save and load it locally so you can skip the authentication. See the note ["Using Mistral-7B Model in Production"](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/02-open-source/serving-hugging-face-models.md) for detailed instructions.
+
+### 2.6 Exploring Open Source LLMs
+Basically to explore various open-source models on HuggingFace, you could adopt a "plug-and-play" method by referring to the codes found in model pages.
+Other open-source models:
+- [LLM360/Amber](https://huggingface.co/LLM360/Amber)
+- [Gemma-7B](https://huggingface.co/blog/gemma)
+- [SaulLM-7B](https://huggingface.co/papers/2403.03883)
+- [Granite-7B](https://huggingface.co/ibm-granite/granite-7b-base)
+- [MPT-7B](https://huggingface.co/mosaicml/mpt-7b)
+- [OpenLLaMA-7B](https://huggingface.co/openlm-research/open_llama_7b)
+
+Note that you need to check how many parameters the models are using to know if the GPU can handle them. For SaturnCloud, 1 GPU could handle models with <=7B parameters. 
+
+Another attribute to look out for is the quantization parameter used in the model, which is specified under "Experiment", e.g. 4bit, 16bit, this means the model would be faster at the cost of being less precise.
+
+Good places to start for finding good open-source LLMs:
+1. Leaderboards. Example: [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) and [Open LLM Performance Leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard)
+2. Google
+3. ChatGPT
+
+### 2.7 Running LLMs Locally without a GPU with Ollama
+Ollama - allow LLMs to run on a CPU. To begin, see the official guide available at [Ollama Github README](https://github.com/ollama/ollama)
+Setup guide:
+1. [Download Ollama](https://ollama.com/download). For Mac users, double-click on the downloaded Ollama application and follow-through the instructions. Also see [guide](https://medium.com/free-or-open-source-software/ollama-get-up-and-running-with-llama-2-mistral-and-other-large-language-models-on-macos-4c5b8d404acc).
+2. Test installation in terminal, input ```ollama run phi3```
+3. Test with a general question ```I just discovered the course. How do I join```
+4. Test with a [prompt](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/02-open-source/prompt.md)
+5. Input ```/bye``` to exit from Ollama in terminal.
+- Goal: replace the OpenAI model with the Ollama model.
+- Duplicate the notebook built in 2.4 and modify from there. 
+- Modify the llm() to use phi3 model.
+- Modify the OpenAI client object to use Ollama as below:
+```
+from openai import OpenAI
+
+client = OpenAI(
+    base_url='http://localhost:11434/v1/',
+    api_key='ollama',
+)
+```
+Alternative to installing Ollama on your local machine: Running Ollama with Docker.
+1. In terminal, input:
+```
+docker run -it \
+    -v ollama:/root/.ollama \
+    -p 11434:11434 \
+    --name ollama \
+    ollama/ollama
+```
+2. Open a new terminal and input ```docker exec -it ollama bash```, then ```ollama pull phi3```
+3. Once Step 2 is done, execute your jupyter notebook as usual.
 
 
 ### Other notes
