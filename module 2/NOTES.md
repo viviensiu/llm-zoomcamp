@@ -151,7 +151,27 @@ volumes:
 - Copy-paste the rag notebook from Module 1 into Module 2.
 - Modify the following:
     - Remove minsearch codes.
-    - Modify OpenAI codes with the Ollama codes used in previous lesson 2.7.
+    - Modify OpenAI codes with the Ollama codes used in Section 2.7.
+- Execute ```docker-compose down``` to stop and remove containers once finished with experiments.
+
+### 2.9 Creating a Streamlit UI
+- Goal: To create a Streamlit UI to allow user interaction with the RAG-Ollama
+- Execute ```pipenv install streamlit``` in the virtual env ```llm-zoomcamp-env```.
+- From the rag-ollama notebook created in Section 2.8, copy-paste the following:
+    - OpenAI client and ElasticSearch client.
+    - functions elastic_search(), build_prompt(), llm(), rag().
+- Define a main function for the Streamlit UI that incorporates:
+    - a text input field and a button to submit the user input to rag().
+    - a spinner to indicate processing.
+    - an output to display the response from rag().
+- Extra: Create a class that creates an ElasticSearch index "course-questions" if none exists. See ```elasticSearchRag.py```.
+- Check if Ollama and ElasticSearch containers are running by executing in terminal ```docker ps```
+- If Ollama and ElasticSearch containers are not running, execute ```docker-compose up``` to bring up Ollama and ElasticSearch.
+- Execute ```pipenv run streamlit run "module 2/qa_faq.py"```
+- Test the Streamlit UI with the question ```I just discovered your course. Can I still join?```
+- Sample UI with output:
+![Alt text](../img/rag_streamlit.png?raw=true "Title")
+- Other options for UI: Flask, Telegram, etc.
 
 ### Other notes
 - To check which type of GPU is used in Saturn Cloud: After starting Jupyter Notebook, click on "New" -> "Terminal". Type in ```nvidia-smi```.

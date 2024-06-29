@@ -16,6 +16,7 @@ pandas = "*"
 scikit-learn = "*"
 requests = "*"
 tiktoken = "*"
+streamlit = "*"
 
 [dev-packages]
 
