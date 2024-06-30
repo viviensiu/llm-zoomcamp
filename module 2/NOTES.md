@@ -176,6 +176,9 @@ volumes:
 ![Alt text](../img/rag_streamlit.png?raw=true "Title")
 - Other options for UI: Flask, Telegram, etc.
 
+### Homework
+- Link to [homework questions](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2024/02-open-source/homework.md).
+
 ### Other notes
 - To check which type of GPU is used in Saturn Cloud: After starting Jupyter Notebook, click on "New" -> "Terminal". Type in ```nvidia-smi```.
 - To watch your GPU usage, in the same terminal window, type in ```watch nvidia-smi```
