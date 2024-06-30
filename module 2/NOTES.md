@@ -1,11 +1,11 @@
 ## Module 2: Open-Source LLMs
-All module 2 videos and notebook links can be found [here](https://github.com/DataTalksClub/llm-zoomcamp/tree/main/02-open-source).
+All module 2 videos and notebook links can be found [here](https://github.com/DataTalksClub/llm-zoomcamp/tree/main/02-open-source). All module 2 notebooks are executed in existing conda environment ```llm-zoomcamp-env``` with ```pipenv install```.
 
 ### 2.1 Introduction
 Motivation: Replacing OpenAI in Module 1 with open-source LLM
 
 ### 2.2 Using SaturnCloud for GPU Notebooks
-- Goal: Setup [SaturnCloud](https://saturncloud.io/) account to have GPU access to run open-source LLM.
+- <b>Goal</b>: Setup [SaturnCloud](https://saturncloud.io/) account to have GPU access to run open-source LLM.
 - <s>[Closed on 25th June 2024] Register for an account with free GPU access at LLM Zoomcamp website.</s>
 - Log on to Saturn Cloud and setup the following:
     1. ```Secrets```: Store your API keys for various open-source LLMs here (e.g. HuggingFace API key)
@@ -24,8 +24,8 @@ Motivation: Replacing OpenAI in Module 1 with open-source LLM
     8. You can always find your created servers in Saturn Cloud under ```Resources```. Scroll down to find them.
 
 ### 2.3 HuggingFace and Google FLAN T5
+- <b>Goal</b>: replace the OpenAI model with the FLAN-T5-XL model.
 - Create [starter notebook](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/02-open-source/starter.ipynb) locally.
-- Goal: replace the OpenAI model with the FLAN-T5-XL model.
 - Link to [HuggingFace FLAN-T5 XL model page](https://huggingface.co/google/flan-t5-xl)
 - Link to [HuggingFace FLAN-T5 documentation](https://huggingface.co/docs/transformers/en/model_doc/flan-t5)
 - Link to [T5's documentation page](https://huggingface.co/docs/transformers/en/model_doc/t5)
@@ -39,7 +39,7 @@ Motivation: Replacing OpenAI in Module 1 with open-source LLM
     4. Decode the response back into plain text.
 
 ### 2.4 Phi 3 Mini
-- Goal: replace the OpenAI model with the Phi3 model.
+- <b>Goal</b>: replace the OpenAI model with the Phi3 model.
 - Duplicate the notebook built in 2.3 and modify from there. This helps to retain the env variables setup done previously.
 - Link to [HuggingFace Microsoft Phi3 model page](https://huggingface.co/microsoft/Phi-3-mini-128k-instruct)
 - Link to [Huggingface pipeline doc page on text generation](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#transformers.TextGenerationPipeline)
@@ -52,13 +52,13 @@ Motivation: Replacing OpenAI in Module 1 with open-source LLM
     4. Decode the response back into plain text.
 
 ### 2.5 Mistral-7B and HuggingFace Hub Authentication
-- Goal: replace the OpenAI model with the Mistral-7B model.
+- <b>Goal</b>: replace the OpenAI model with the Mistral-7B model.
 - Duplicate the notebook built in 2.4 and modify from there. 
 - Link to [HuggingFace Mistral-7B model page](https://huggingface.co/mistralai/Mistral-7B-v0.1)
-- Before you can use this model, you must: 
+- To use this model, you must: 
     1. Accept the agreement in the [model page](https://huggingface.co/mistralai/Mistral-7B-v0.1).
-    2. Setup a HuggingFace account. Under ```Settings -> Access Tokens```, create a new token, copy the token (should begin with "hf_************")
-    3. [Optional] Add this to your SaturnCloud account list of secret keys. See Section 2.2 notes under ```Secrets``` and ```"Secrets and Roles" -> "Attach Secret Environment Variable"```.
+    2. Setup a HuggingFace account. Under ```Settings``` -> ```Access Tokens```, create a new token, copy the token (should begin with ```hf_************```)
+    3. [Optional] Add this to your SaturnCloud account list of secret keys. See Section 2.2 notes under Step 4.
     4. If you skip Step 3, you'll need to find a way to import this HuggingFace token into the code, e.g. by hardcoding.
 - The sample code block for Mistral-7B is taken from [HuggingFace LLM Tutorial](https://huggingface.co/docs/transformers/en/llm_tutorial)
 - Load the HuggingFace token in your code. If you have done Step 3 above, the ```os.environ``` key must match the name of the env. variable that was set as per Step 3 above.
@@ -68,7 +68,7 @@ Motivation: Replacing OpenAI in Module 1 with open-source LLM
     2. Encode prompt with tokenizer.
     3. Mistral-7B model will generate a encoded response from the encoded prompt.
     4. Decode the response back into plain text.
-- Note: This model requires authentication and may pose an issue if we want to put it in a container. The other option would be to download the model, save and load it locally so you can skip the authentication. See the note ["Using Mistral-7B Model in Production"](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/02-open-source/serving-hugging-face-models.md) for detailed instructions.
+- <b>Note</b>: This model requires authentication and may pose an issue if we want to put it in a container. The other option would be to download the model, save and load it locally so you can skip the authentication. See the note ["Using Mistral-7B Model in Production"](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/02-open-source/serving-hugging-face-models.md) for detailed instructions.
 
 ### 2.6 Exploring Open Source LLMs
 Basically to explore various open-source models on HuggingFace, you could adopt a "plug-and-play" method by referring to the codes found in model pages.
@@ -80,9 +80,9 @@ Other open-source models:
 - [MPT-7B](https://huggingface.co/mosaicml/mpt-7b)
 - [OpenLLaMA-7B](https://huggingface.co/openlm-research/open_llama_7b)
 
-Note that you need to check how many parameters the models are using to know if the GPU can handle them. For SaturnCloud, 1 GPU could handle models with <=7B parameters. 
+<b>Note</b>: Check how many parameters the models are using to know if the GPU can handle them. For SaturnCloud, 1 GPU could handle models with <=7B parameters. 
 
-Another attribute to look out for is the quantization parameter used in the model, which is specified under "Experiment", e.g. 4bit, 16bit, this means the model would be faster at the cost of being less precise.
+Another attribute to look out for is the quantization parameter used in the model, specified under ```Experiment``` in [Open LLM Performance Leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard), e.g. 4bit, 16bit. Implication: Faster but less precise model. 
 
 Good places to start for finding good open-source LLMs:
 1. Leaderboards. Example: [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) and [Open LLM Performance Leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard)
@@ -90,14 +90,16 @@ Good places to start for finding good open-source LLMs:
 3. ChatGPT
 
 ### 2.7 Running LLMs Locally without a GPU with Ollama
-Ollama - allow LLMs to run on a CPU. To begin, see the official guide available at [Ollama Github README](https://github.com/ollama/ollama)
+Ollama - allow LLMs to run on a CPU. To begin, refer the official guide at [Ollama Github README](https://github.com/ollama/ollama).
+
 Setup guide:
-1. [Download Ollama](https://ollama.com/download). For Mac users, double-click on the downloaded Ollama application and follow-through the instructions. Also see [guide](https://medium.com/free-or-open-source-software/ollama-get-up-and-running-with-llama-2-mistral-and-other-large-language-models-on-macos-4c5b8d404acc).
-2. Test installation in terminal, input ```ollama run phi3```
-3. Test with a general question ```I just discovered the course. How do I join```
+1. [Download Ollama](https://ollama.com/download). For Mac users, double-click on the downloaded Ollama application and follow the instructions. [Guide](https://medium.com/free-or-open-source-software/ollama-get-up-and-running-with-llama-2-mistral-and-other-large-language-models-on-macos-4c5b8d404acc).
+2. Test installation in terminal: input ```ollama run phi3```
+3. Test with a general question: ```I just discovered the course. How do I join```
 4. Test with a [prompt](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/02-open-source/prompt.md)
 5. Input ```/bye``` to exit from Ollama in terminal.
-- Goal: replace the OpenAI model with the Ollama model.
+
+- <b>Goal</b>: replace the OpenAI model with the Ollama model.
 - Duplicate the notebook built in 2.4 and modify from there. 
 - Modify the llm() to use phi3 model.
 - Modify the OpenAI client object to use Ollama as below:
@@ -122,8 +124,8 @@ docker run -it \
 3. Once Step 2 is done, execute your jupyter notebook as usual.
 
 ### 2.8 Ollama + Elastic in Docker Compose
-- Goal: rerun notebook from Module 1 with local LLM using Ollama.
-- create a docker-compose.yaml file to pull and run ollama and elasticsearch containers
+- <b>Goal</b>: rerun notebook from Module 1 with local LLM using Ollama.
+- Create a docker-compose.yaml file to pull images and run ollama and elasticsearch containers:
 ```
 version: '3.8'
 
@@ -147,16 +149,16 @@ services:
 volumes:
   ollama:
 ```
-- In a new terminal, execute ```docker-compose up```
-- In a new terminal and input ```docker exec -it ollama bash```, then ```ollama pull phi3```
-- Copy-paste the rag notebook from Module 1 into Module 2.
+- In a new terminal, execute ```docker-compose up```.
+- In a new terminal and input ```docker exec -it ollama bash```, then ```ollama pull phi3```.
+- Copy-paste the rag notebook from Module 1 into Module 2. Rename as rag-ollama. 
 - Modify the following:
     - Remove minsearch codes.
     - Modify OpenAI codes with the Ollama codes used in Section 2.7.
 - Execute ```docker-compose down``` to stop and remove containers once finished with experiments.
 
 ### 2.9 Creating a Streamlit UI
-- Goal: To create a Streamlit UI to allow user interaction with the RAG-Ollama
+- <b>Goal</b>: To create a Streamlit UI to allow user interaction with the RAG-Ollama
 - Execute ```pipenv install streamlit``` in the virtual env ```llm-zoomcamp-env```.
 - From the rag-ollama notebook created in Section 2.8, copy-paste the following:
     - OpenAI client and ElasticSearch client.
@@ -165,8 +167,8 @@ volumes:
     - a text input field and a button to submit the user input to rag().
     - a spinner to indicate processing.
     - an output to display the response from rag().
-- Extra: Create a class that creates an ElasticSearch index "course-questions" if none exists. See ```elasticSearchRag.py```.
-- Check if Ollama and ElasticSearch containers are running by executing in terminal ```docker ps```
+- <b>Extra</b>: Create a class that creates an ElasticSearch index "course-questions" if none exists. See ```elasticSearchRag.py```.
+- Check if Ollama and ElasticSearch containers are running by executing in terminal ```docker ps```.
 - If Ollama and ElasticSearch containers are not running, execute ```docker-compose up``` to bring up Ollama and ElasticSearch.
 - Execute ```pipenv run streamlit run "module 2/qa_faq.py"```
 - Test the Streamlit UI with the question ```I just discovered your course. Can I still join?```
