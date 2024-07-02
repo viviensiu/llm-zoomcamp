@@ -176,6 +176,15 @@ volumes:
 ![Alt text](../img/rag_streamlit.png?raw=true "Title")
 - Other options for UI: Flask, Telegram, etc.
 
+### Using Google Colab GPU
+- <b>Goal</b>: Run open-source LLM (Google FLAN-T5 XL) with Google Colab GPU
+- [Video link](https://www.loom.com/share/591f39e4e231486bbfc3fbd316ec03c5)
+- Duplicate the flan-t5 notebook created at Section 2.3.
+- Ensure ```Runtime type``` is set to ```T4 GPU``` in Colab.
+- Include the ```!pip install -U transformers accelerate bitsandbytes``` commands within the notebook.
+- <b>Note</b> that there is no need to change the ```HF_HOME``` env. variable to point to /run/cache when using Google Colab as the storage are all temporary anyway.
+- Execute notebook in Colab as usual.
+
 ### Homework
 - Link to [homework questions](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2024/02-open-source/homework.md).
 
