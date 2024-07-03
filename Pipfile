@@ -17,6 +17,7 @@ scikit-learn = "*"
 requests = "*"
 tiktoken = "*"
 streamlit = "*"
+python-docx = "*"
 
 [dev-packages]
 

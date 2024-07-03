@@ -58,13 +58,21 @@ docker run -it \
     -e "xpack.security.enabled=false" \
     docker.elastic.co/elasticsearch/elasticsearch:8.4.3
 ```
-- test that elasticsearch db is connected using "localhost:9200"
+- test that elasticsearch db is connected using "localhost:9200".
 - create the ES indices. Specify index name, index setting (mapping properties which map to the FAQ document fields, and the search keyword which is the "course" field in FAQ document).
 - create the ES index by indexing each row of document text in documents. Progress is tracked by tqdm.
 - elastic_search(): Based on a query, filter to only search the ES index in course=data-engineering-zoomcamp, then retrieve the top 5 results that  closely match the fields "question", "text", "section". Notice that question has been given thrice the weights.
 - modify the rag() by replacing search() with elastic_search().
 
+### Parsing FAQ
+- [Video link](https://www.loom.com/share/ff54d898188b402d880dbea2a7cb8064)
+- Goal: To parse FAQ document as JSON
+- Steps:
+    1. Run ```pipenv install python-docx```.
+    2. Run the notebook [parse-faq](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/01-intro/parse-faq.ipynb).
+
 ### Homework
-- Link to [homework questions](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2024/01-intro/homework.md)
+- Link to [homework questions](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2024/01-intro/homework.md). 
+- Link to [homework solutions](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2024/01-intro/homework.md). 
 - Install requests, tiktoken using ```pipenv install requests tiktoken```
 - Tiktoken Reference: [How to count tokens with tiktoken](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken) 
