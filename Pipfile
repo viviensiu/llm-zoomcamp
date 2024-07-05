@@ -18,6 +18,7 @@ requests = "*"
 tiktoken = "*"
 streamlit = "*"
 python-docx = "*"
+sentence-transformers = "==2.7.0"
 
 [dev-packages]
 

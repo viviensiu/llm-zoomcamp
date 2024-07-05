@@ -17,6 +17,7 @@ Repo for my LLM-zoomcamp course materials.
 - Complete the 6 modules.
 - Complete the project for certification.
 - Optional: Participate in the Kaggle competition
+- Also see [Awesome LLMs](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/awesome-llms.md).
 
 ## Recommended reading materials
 - [Introduction to Information Retrieval](https://nlp.stanford.edu/IR-book/information-retrieval-book.html)

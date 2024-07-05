@@ -120,7 +120,7 @@ docker run -it \
     --name ollama \
     ollama/ollama
 ```
-2. Open a new terminal and input ```docker exec -it ollama bash```, then ```ollama pull phi3```
+2. Open a new terminal and input ```docker exec -it ollama bash``` to enter the ```ollama``` container and execute an interactive bash , then ```ollama pull phi3``` to pull the phi3 model into this container.
 3. Once Step 2 is done, execute your jupyter notebook as usual.
 
 ### 2.8 Ollama + Elastic in Docker Compose
