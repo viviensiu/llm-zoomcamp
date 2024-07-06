@@ -29,6 +29,23 @@ docker run -it \
 - The query is also embedded with the same pretrained model.
 - ElasticSearch search is done using KNN to perform vector search.
 
+### 3.3.1 Evaluation Metrics for Retrieval
+- Goal: To understand how to evaluate the retrieval methods used in previous modules, e.g. minsearch, ElasticSearch.
+- The retrieval method influences the quality of the response.
+- Given a query, you can set some standards where you expect the responses to come from. Example:
+    Query: "I just discovered your course, can I still join?"
+    Expected best response: retrieve most relevant results from doc1, doc10, doc11.
+    If the responses are close to expectations, the performance is good, else otherwise.
+- Hence the following approaches are used for evaluation:
+    1. Ground truth / gold standard data.
+    2. Human feedback on generated responses, typically one could sample ground truth from production data. However if non-available, ground truth data can be generated from LLM.
+    3. Evaluate the retrieval results based on ground truth.
+- In the previous module, we have seen the way ElasticSearch is configured to retrieve results based on a query. Some fields are given a boost, some fields are left out. There are many ways to configure these search criterias or to embed these data, note that there is no universal standard of a "best" method, as this typically depends on data characteristics.
+- Typically, the relevancy of search results are ranked. Here are some [common ranking evaluation metrics](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/03-vector-search/evaluation-metrics.md).
+
+### 3.3.2 Ground Truth Dataset Generation for Retrieval Evaluation
+ 
+
 ### References
 1. https://logz.io/blog/elasticsearch-mapping/#:~:text=Within%20a%20search%20engine%2C%20mapping,indexes%20and%20stores%20its%20fields
 
