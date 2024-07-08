@@ -29,6 +29,9 @@ docker run -it \
 - The query is also embedded with the same pretrained model.
 - ElasticSearch search is done using KNN to perform vector search.
 
+### 3.3 Evaluation
+See [eval repo](https://github.com/DataTalksClub/llm-zoomcamp/tree/main/03-vector-search/eval) for all course notebooks and files.
+
 ### 3.3.1 Evaluation Metrics for Retrieval
 - Goal: To understand how to evaluate the retrieval methods used in previous modules, e.g. minsearch, ElasticSearch.
 - The retrieval method influences the quality of the response.
@@ -44,7 +47,17 @@ docker run -it \
 - Typically, the relevancy of search results are ranked. Here are some [common ranking evaluation metrics](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/03-vector-search/evaluation-metrics.md).
 
 ### 3.3.2 Ground Truth Dataset Generation for Retrieval Evaluation
- 
+- <b>Goal</b>: For each record in the FAQ document, generate 5 questions using LLM. These questions-record pairs will serve as the gold standard/ground truth dataset to evaluate retrieval methods in subsequent lessons.
+- <b>Note</b>: As there are no production system nor domain experts for human feedback, we resort to using LLM for such generation.
+- Steps:
+    1. For each record, generate a unique ID so the generated questions could be linked to the original record.
+    2. Cross-check if the IDs are unique per document.
+    3. Save the results from above into new file.
+    4. Generate the questions for each record using LLM.
+    5. Parse the questions in JSON format and save into CSV.
+- <b>Note</b>: Ollama with Phi3 model instead of GPT-4o is being used to generate questions, which took 7H 17m. To start Ollama, I used the docker-compose file that was created in Section 2.8 to start the Ollama container. Alternatively, download the results.bin file from the LLM-zoomcamp module 3 repo to skip the LLM question generation step and parse questions in JSON format directly and save as CSV.
+
+### 3.3.3
 
 ### References
 1. https://logz.io/blog/elasticsearch-mapping/#:~:text=Within%20a%20search%20engine%2C%20mapping,indexes%20and%20stores%20its%20fields
