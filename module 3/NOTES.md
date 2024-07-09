@@ -29,7 +29,7 @@ docker run -it \
 - The query is also embedded with the same pretrained model.
 - ElasticSearch search is done using KNN to perform vector search.
 
-### 3.3 Evaluation
+### 3.3 Evaluating Retrieval
 See [eval repo](https://github.com/DataTalksClub/llm-zoomcamp/tree/main/03-vector-search/eval) for all course notebooks and files.
 
 ### 3.3.1 Evaluation Metrics for Retrieval
@@ -44,7 +44,7 @@ See [eval repo](https://github.com/DataTalksClub/llm-zoomcamp/tree/main/03-vecto
     2. Human feedback on generated responses, typically one could sample ground truth from production data. However if non-available, ground truth data can be generated from LLM.
     3. Evaluate the retrieval results based on ground truth.
 - In the previous module, we have seen the way ElasticSearch is configured to retrieve results based on a query. Some fields are given a boost, some fields are left out. There are many ways to configure these search criterias or to embed these data, note that there is no universal standard of a "best" method, as this typically depends on data characteristics.
-- Typically, the relevancy of search results are ranked. Here are some [common ranking evaluation metrics](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/03-vector-search/evaluation-metrics.md).
+- Typically, the relevancy of search results are ranked. Here are some [common ranking evaluation metrics](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/03-vector-search/eval/evaluation-metrics.md).
 
 ### 3.3.2 Ground Truth Dataset Generation for Retrieval Evaluation
 - <b>Goal</b>: For each record in the FAQ document, generate 5 questions using LLM. These questions-record pairs will serve as the gold standard/ground truth dataset to evaluate retrieval methods in subsequent lessons.
@@ -57,7 +57,25 @@ See [eval repo](https://github.com/DataTalksClub/llm-zoomcamp/tree/main/03-vecto
     5. Parse the questions in JSON format and save into CSV.
 - <b>Note</b>: Ollama with Phi3 model instead of GPT-4o is being used to generate questions, which took 7H 17m. To start Ollama, I used the docker-compose file that was created in Section 2.8 to start the Ollama container. Alternatively, download the results.bin file from the LLM-zoomcamp module 3 repo to skip the LLM question generation step and parse questions in JSON format directly and save as CSV.
 
-### 3.3.3
+### 3.3.3 Ranking evaluation: text search
+- <b>Goal</b>: Evaluate the text search retrieval results using ground-truth data with Hit Rate (HR) and Mean Reciprocal Rank (MRR).
+- Setup:
+    - Copy minsearch.py from Module 2 into Module 3 folder.
+    - Bring up ElasticSearch container with Docker:
+```
+docker run -it \
+    --name elasticsearch \
+    -p 9200:9200 \
+    -p 9300:9300 \
+    -e "discovery.type=single-node" \
+    -e "xpack.security.enabled=false" \
+    docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+```
+- Steps:
+    1. Create an ElasticSearch index using documents-with-ids.json and an ES Search to perform text search in this index.
+    2. Loop thru all ground-truth questions and use them to perform ES Search. For each question, retrieve the IDs from search result and compare with the IDs tied to this question in ground-truth data. If the IDs match, set it to True, else False.
+    3. Evaluate the comparison results using Hit Rate and MRR.
+    4. Repeat Steps 1 to 3 by replacing ES Search with MinSearch.
 
 ### References
 1. https://logz.io/blog/elasticsearch-mapping/#:~:text=Within%20a%20search%20engine%2C%20mapping,indexes%20and%20stores%20its%20fields
