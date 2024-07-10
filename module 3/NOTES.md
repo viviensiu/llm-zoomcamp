@@ -77,6 +77,20 @@ docker run -it \
     3. Evaluate the comparison results using Hit Rate and MRR.
     4. Repeat Steps 1 to 3 by replacing ES Search with MinSearch.
 
+### 3.3.4 Ranking evaluation: vector search
+- <b>Goal</b>: Evaluate the vector search retrieval results using ground-truth data with Hit Rate (HR) and Mean Reciprocal Rank (MRR).
+- 3 different methods to evaluate:
+    * Embedding on questions only.
+    * Embedding on answers only.
+    * Embedding on questions and answers.
+- The sentence embedding model is selected from [Sentence Transformers](https://www.sbert.net/docs/sentence_transformer/pretrained_models.html). Unlike in Section 3.2, a smaller embedding model is used instead to reduce time.
+- Bring up ElasticSearch container with Docker as per Section 3.3.3 or if the container is not removed yet, execute ```docker start elasticsearch```.
+- Steps:
+    1. Create an ElasticSearch index using documents-with-ids.json and an ES Search which has the questions, answers embedded (individualy and combined) to perform vector search (using KNN) in this index.
+    2. For each method to be evaluated:
+        - Loop thru all ground-truth questions, embed the ground-truth questions, specify the index field that is relevant to the method and perform ES search.
+        - Evaluate the search results using Hit Rate and MRR.
+
 ### References
 1. https://logz.io/blog/elasticsearch-mapping/#:~:text=Within%20a%20search%20engine%2C%20mapping,indexes%20and%20stores%20its%20fields
 
