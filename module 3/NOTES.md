@@ -91,6 +91,9 @@ docker run -it \
         - Loop thru all ground-truth questions, embed the ground-truth questions, specify the index field that is relevant to the method and perform ES search.
         - Evaluate the search results using Hit Rate and MRR.
 
+### Homework
+- Link to [homework questions](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2024/03-vector-search/homework.md).
+
 ### References
 1. https://logz.io/blog/elasticsearch-mapping/#:~:text=Within%20a%20search%20engine%2C%20mapping,indexes%20and%20stores%20its%20fields
 
