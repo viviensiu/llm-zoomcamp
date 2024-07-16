@@ -186,7 +186,7 @@ volumes:
 - Execute notebook in Colab as usual.
 
 ### Homework
-- Link to [homework questions](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2024/02-open-source/homework.md).
+- Link to [homework questions and solution video](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2024/02-open-source/homework.md).
 
 ### Other notes
 - To check which type of GPU is used in Saturn Cloud: After starting Jupyter Notebook, click on "New" -> "Terminal". Type in ```nvidia-smi```.
