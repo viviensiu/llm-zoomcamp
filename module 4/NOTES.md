@@ -27,3 +27,19 @@ Monitoring the system helps us to ensure that the system is working as intended.
     - Errors: Does system respond with error code.
     - Saturation: Resource consumption of the system, e.g. memory, GPU.
 - Cost of used infrastructure, e.g. cost of vector store, LLM API calls.
+
+### 4.2 Offline vs Online (RAG) evaluation
+Recall that back in RAG modules, we created a RAG application with the following steps:
+- Retrieve relevant information based on user query as context.
+- Augment the prompt with the retrieved context and feed this to LLM.
+- Generate the response from LLM back to user.
+We also evaluated our search results in retrieval using:
+- Hit Rate.
+- Mean Reciprocal Rank (MRR).
+Now, to evaluate the whole LLM application, there are 2 ways:
+- **Offline evaluation**: Done **before** deployment, e.g. with Hit Rate and MRR, smilarity measures (cosine similarity) between ground-truth data and LLM response like in Module 3, LLM-as-a-judge (using another LLM to evaluate responses from one LLM).
+- **Online evaluation**: A/B tests, experiments, user feedback.
+Monitoring is done to observe the overall health of the system:
+- Performance metrics, e.g. LLM response quality.
+
+### 4.3 Generating data for offline RAG evaluation
