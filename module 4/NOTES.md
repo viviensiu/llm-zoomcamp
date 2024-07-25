@@ -1,6 +1,8 @@
 ## Module 4: Evaluation and Monitoring
 All module 4 videos and notebook links can be found [here](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/04-monitoring/README.md).
 
+**Note**: I completed this module using the ```llm-zoomcamp-env``` virtual env as per previous modules.
+
 **Evaluation**: Assess the quality of our entire RAG system before it goes live.
 
 **Monitoring**: Collect, store and visualize metrics to assess the answer quality of a deployed LLM. Also collect chat history and user feedback.
@@ -43,3 +45,60 @@ Monitoring is done to observe the overall health of the system:
 - Performance metrics, e.g. LLM response quality.
 
 ### 4.3 Generating data for offline RAG evaluation
+**Goal** Given some questions, evaluate LLM responses (answers) for a Q&A chatbot with ground-truth data (original answers). This helps to evaluate if a chosen LLM's performance meets our expectations in development environment before it's used as the LLM in a production setting.
+**Setup**:
+- Execute ```pipenv install seaborn```
+- Bring up Elastic Search container with ```docker start elasticsearch``` or 
+```bash
+docker run -it \
+    --name elasticsearch \
+    -p 9200:9200 \
+    -p 9300:9300 \
+    -e "discovery.type=single-node" \
+    -e "xpack.security.enabled=false" \
+    docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+```
+- Load the documents with ids and ground-truth data.
+- Load a Sentence Transformer embedding model to generate vector embeddings.
+- Setup ES index with vector embeddings on question and text, vector search function to retrieve answers based on cosine similarity.
+- Setup ES Search with KNN to retrieve top 5 results of the vector search.
+- Setup RAG flow that retrieves 5 ES Search results, augment the prompt with search results, and generate a response using OpenAI API.
+- For the LLM comparison, I will be comparing Llama2-7B, Llama3-8B and (maybe) Llama3.1-8B. Hence the prequisites are:
+    - [Download and install Ollama](https://ollama.com/download).
+    - Bring up Ollama service in local computer.
+    - Execute in terminal: ```ollama pull llama2:7b```, ```ollama pull llama3:8b```, ```ollama pull llama3.1:8b```. 
+    - **NOTE**: Refer to [Ollama library](https://ollama.com/library) for the correct model names and tags.
+**Prepare data for evaluation**
+- Given a ground-truth question and answer pair, the same question is fed to RAG to generate a response.
+- For Module 4.3, we evaluate LLM models GPT-4o and GPT-3.5 Turbo, I changed it to Llama2-7B, Llama3-8B.
+    - Llama2-7B response generation took 5 hours.
+    - Llama3-8B response generation (with parallelization using [ThreadPoolExecutor](https://medium.com/@rajputgajanan50/how-to-use-threadpoolexecutor-in-python-3-6819c7896e89)) took 3.1 hours.
+- The generated answers together with the ground-truth are saved in CSVs for further evaluation in Module 4.4.
+
+### 4.4 Offline RAG evaluation: cosine similarity
+(Same notebook as 4.3)
+**Evaluation**:
+- Load the saved CSVs from Module 4.3.
+- Generate vector embeddings for LLM response and ground-truth answer. 
+- The response is then compared to the answer in ground-truth to evaluate how similar they are. This is done by computing the cosine similarity between both vector embeddings. 
+- A result close to 1 means highly similar, and vice-verse if the result is close to 0.
+- We could also evaluate based on the cosine similarity statistics and distribution, e.g. mean, median, to compare the candidate LLMs. 
+- The cosine similarity could also be plotted for comparison. 
+**NOTE** I skipped evaluation on Llama3.1-8B as it was incredibly slow on Ollama.
+
+### 4.5 LLM-as-a-judge
+(Same notebook as 4.3)
+- Alternative to using cosine similarity, we could use another LLM (different than the one used for chatbot) to evaluate whether the response is relevant to the original question and/or original answer.
+- In a online RAG evaluation setting, we will not have access to the original/expected answer, this prevents cosine similarity to be carried out.
+- However, this is not an issue with LLM-as-a-judge despite the lack of original answer, hence it is a convenient method to perform evaluation on the fly.
+- **Method**:
+    1. Create a prompt that instructs the LLM to have an evaluator persona, accepts the responses and original data, specify how the evaluation metric works and the JSON format of the evaluation results. Example of evaluation metric: classify as "RELEVANT", "PARTLY RELEVANT", "NON RELEVANT"
+    2. Extract a random set of samples from the saved CSVs in Module 4.3, e.g. 150 samples.
+    3. For each sample, parse the information into LLM and retrieve the evaluation results.
+    4. Examine the distribution of relevance classes.
+    5. Look at the responses and original answers of selected negative records (LLM responses classified as "NON RELEVANT") to see where the issue may be at.
+
+
+### Ollama running on Mac
+[Apple Silicon GPUs, Docker and Ollama: Pick two.](https://chariotsolutions.com/blog/post/apple-silicon-gpus-docker-and-ollama-pick-two/)
+
