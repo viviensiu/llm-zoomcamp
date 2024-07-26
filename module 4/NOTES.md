@@ -98,6 +98,40 @@ docker run -it \
     4. Examine the distribution of relevance classes.
     5. Look at the responses and original answers of selected negative records (LLM responses classified as "NON RELEVANT") to see where the issue may be at.
 
+### 4.6 Capturing User Feedback
+**Goal** 
+- To capture user satisfaction with the LLM response. Given a user query, an LLM response and a user feedback (thumbs up, thumbs down), these information will be stored in PostgreSQL.
+- Create a docker-compose file that would:
+    - Persist data in Elastic Search index to prevent reindexing data on every run.
+    - Include PostgreSQL with volume mapping.
+    - Include a separate container for the Streamlit app.
+**New Packages**
+-  psycopg2-binary: PostgreSQL database adapter for the Python programming language.
+**Setup**
+- Install pgcli to be able to run SQL queries in PostgreSQL via CLI.
+```bash
+pip install pgcli
+pgcli -h localhost -U your_username -d course_assistant -W
+```
+- .env: Stores env variables for PostgreSQL, Elastic Search, Ollama, Streamlit, embedding model and index name.
+- Dockerfile: 
+- docker-compose.yml:
+- requirements.txt: 
+**Initialization**
+
+Run ```docker-compose up```, which will:
+    - initialise the required containers: elasticsearch, ollama, postgres, grafana.
+    - Build an image based on Dockerfile.
+    - Create a Docker container for the Streamlit application, and install required Python packages listed in requirements.txt.
+
+**Chatbot Modules**
+- prep.py: One-time initialization to setup Elastic Search index.
+- assistant.py: RAG assistant to accept a user query, performs vector search in ES Index for context, and returns an LLM response based on the context.
+- db.py: initialise connection, retrieve, save conversations and feedbacks to PostgreSQL DB.
+- generate_data.py:
+
+**Debugging**
+- Use ```pgcli``` to check PostgreSQL tables.
 
 ### Ollama running on Mac
 [Apple Silicon GPUs, Docker and Ollama: Pick two.](https://chariotsolutions.com/blog/post/apple-silicon-gpus-docker-and-ollama-pick-two/)
