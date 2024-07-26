@@ -77,6 +77,7 @@ docker run -it \
 
 ### 4.4 Offline RAG evaluation: cosine similarity
 (Same notebook as 4.3)
+
 **Evaluation**:
 - Load the saved CSVs from Module 4.3.
 - Generate vector embeddings for LLM response and ground-truth answer. 
@@ -99,14 +100,16 @@ docker run -it \
     5. Look at the responses and original answers of selected negative records (LLM responses classified as "NON RELEVANT") to see where the issue may be at.
 
 ### 4.6 Capturing User Feedback
-**Goal** 
+**Goal**: 
 - To capture user satisfaction with the LLM response. Given a user query, an LLM response and a user feedback (thumbs up, thumbs down), these information will be stored in PostgreSQL.
-- Create a docker-compose file that would:
+- Containerize the chatbot app using a docker-compose file that would:
     - Persist data in Elastic Search index to prevent reindexing data on every run.
     - Include PostgreSQL with volume mapping.
     - Include a separate container for the Streamlit app.
+
 **New Packages**
 -  psycopg2-binary: PostgreSQL database adapter for the Python programming language.
+
 **Setup**
 - Install pgcli to be able to run SQL queries in PostgreSQL via CLI.
 ```bash
@@ -117,8 +120,8 @@ pgcli -h localhost -U your_username -d course_assistant -W
 - Dockerfile: 
 - docker-compose.yml:
 - requirements.txt: 
-**Initialization**
 
+**Initialization**
 Run ```docker-compose up```, which will:
     - initialise the required containers: elasticsearch, ollama, postgres, grafana.
     - Build an image based on Dockerfile.
