@@ -107,6 +107,7 @@ docker run -it \
     - Persist data in Elastic Search index to prevent reindexing data on every run.
     - Include PostgreSQL with volume mapping.
     - Include a separate container for the Streamlit app.
+- The source codes in this module are generated using Claude-Sonnet!
 
 **New Packages**
 -  psycopg2-binary: PostgreSQL database adapter for the Python programming language.
@@ -118,24 +119,37 @@ pip install pgcli
 pgcli -h localhost -U your_username -d course_assistant -W
 ```
 - .env: Stores env variables for PostgreSQL, Elastic Search, Ollama, Streamlit, embedding model and index name.
-- Dockerfile: 
-- docker-compose.yml:
-- requirements.txt: 
+- Dockerfile: customise the docker image for the Streamlit chatbot.
+- docker-compose.yml: contains configurations to build multiple Docker containers.
+- requirements.txt: contains list of packages required for the Streamlit chatbot.
 
 **Initialization**
-* Run ```docker-compose up```, which will:
-    - initialise the required containers: elasticsearch, ollama, postgres, grafana.
+* One-time execution of ```prep.py```
+* Run ```docker compose up```, which will:
+    - Initialise the required containers: elasticsearch, ollama, postgres, grafana.
     - Build an image based on Dockerfile.
-    - Create a Docker container for the Streamlit application, and install required Python packages listed in requirements.txt.
+    - Create a Docker container for the Streamlit chatbot, and install required Python packages listed in requirements.txt.
 
 **Chatbot Modules**
 - prep.py: One-time initialization to setup Elastic Search index.
 - assistant.py: RAG assistant to accept a user query, performs vector search in ES Index for context, and returns an LLM response based on the context.
 - db.py: initialise connection, retrieve, save conversations and feedbacks to PostgreSQL DB.
 - generate_data.py:
+- app.py: the streamlit app for the chatbot.
 
 **Debugging**
 - Use ```pgcli``` to check PostgreSQL tables.
+- ```pip freeze > <some txt file>``` provides the full list of all packages in the current env.
+- To rebuild images in docker-compose, execute ```docker compose stop <service>``` and then ```docker compose stop <service>```.
+
+### 4.6.2 Capturing User Feedback, Part 2
+**Goal**
+- Option to toggle between text search or vector search.
+- Option to toggle between using Ollama or GPT.
+
+**Approach**
+- Update app.py to offer those options.
+
 
 ### Ollama running on Mac
 [Apple Silicon GPUs, Docker and Ollama: Pick two.](https://chariotsolutions.com/blog/post/apple-silicon-gpus-docker-and-ollama-pick-two/)
