@@ -85,6 +85,7 @@ docker run -it \
 - A result close to 1 means highly similar, and vice-verse if the result is close to 0.
 - We could also evaluate based on the cosine similarity statistics and distribution, e.g. mean, median, to compare the candidate LLMs. 
 - The cosine similarity could also be plotted for comparison. 
+
 **NOTE** I skipped evaluation on Llama3.1-8B as it was incredibly slow on Ollama.
 
 ### 4.5 LLM-as-a-judge
@@ -122,7 +123,7 @@ pgcli -h localhost -U your_username -d course_assistant -W
 - requirements.txt: 
 
 **Initialization**
-Run ```docker-compose up```, which will:
+* Run ```docker-compose up```, which will:
     - initialise the required containers: elasticsearch, ollama, postgres, grafana.
     - Build an image based on Dockerfile.
     - Create a Docker container for the Streamlit application, and install required Python packages listed in requirements.txt.
