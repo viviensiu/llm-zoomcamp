@@ -125,7 +125,7 @@ pgcli -h localhost -U your_username -d course_assistant -W
 
 **Initialization**
 * One-time execution of ```prep.py```
-* Run ```docker compose up```, which will:
+* Run ```docker-compose up```, which will:
     - Initialise the required containers: elasticsearch, ollama, postgres, grafana.
     - Build an image based on Dockerfile.
     - Create a Docker container for the Streamlit chatbot, and install required Python packages listed in requirements.txt.
@@ -140,7 +140,7 @@ pgcli -h localhost -U your_username -d course_assistant -W
 **Debugging**
 - Use ```pgcli``` to check PostgreSQL tables.
 - ```pip freeze > <some txt file>``` provides the full list of all packages in the current env.
-- To rebuild images in docker-compose, execute ```docker compose stop <service>``` and then ```docker compose stop <service>```.
+- To rebuild images in docker-compose, execute ```docker-compose stop <service>``` and then ```docker-compose stop <service>```.
 
 ### 4.6.2 Capturing User Feedback, Part 2
 **Goal**
