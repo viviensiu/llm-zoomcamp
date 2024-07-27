@@ -134,13 +134,12 @@ pgcli -h localhost -U your_username -d course_assistant -W
 - prep.py: One-time initialization to setup Elastic Search index.
 - assistant.py: RAG assistant to accept a user query, performs vector search in ES Index for context, and returns an LLM response based on the context.
 - db.py: initialise connection, retrieve, save conversations and feedbacks to PostgreSQL DB.
-- generate_data.py:
 - app.py: the streamlit app for the chatbot.
 
 **Debugging**
 - Use ```pgcli``` to check PostgreSQL tables.
 - ```pip freeze > <some txt file>``` provides the full list of all packages in the current env.
-- To rebuild images in docker-compose, execute ```docker-compose stop <service>``` and then ```docker-compose stop <service>```.
+- To rebuild images in docker-compose, execute ```docker-compose stop <service>``` and then ```docker-compose build <service>```.
 
 ### 4.6.2 Capturing User Feedback, Part 2
 **Goal**
@@ -150,6 +149,33 @@ pgcli -h localhost -U your_username -d course_assistant -W
 **Approach**
 - Update app.py to offer those options.
 
+### 4.7 Monitoring the System using Grafana
+**Goal**
+- Monitor the LLM chatbot in terms of input tokens, completion tokens, costs, user feedback etc. in a Grafana dashboard that connects to Postgres at the backend.
+- As per 4.6, the source codes are generated using Claude-Sonnet by prompting on the responses we want in monitoring with Grafana!
+
+**Approach**
+- Implement changes in app.py
+- Rerun ```prep.py``` to recreate the database with new schema.
+- Reexport postgres host: ```export POSTGRES_HOST=localhost```.
+- Rebuild streamlit service inside docker-compose with ```docker-compose build streamlit```
+- Perform healthcheck on Streamlit in web browser: ```localhost:8501``` and submit a few questions to test out the logging.
+- Access Grafana via ```localhost:3000``` and login with ```admin/admin``` for user name and password.
+- Setup data source for ```Postgres``` in Grafana (refer ```.env``` for Postgres settings below):
+    - Host: ```postgres```.
+    - Database name: ```course_assistant```.
+    - User: ```your_username```.
+    - Password: ```your_password```.
+    - Click ```Save & Test```.
+- Run ```python generate_data.py``` to generate some synthetic data for Grafana dashboard simulation.
+- In Grafana, click on ```Add Panel``` to begin adding panels. You could customise the panel by inserting the SQL query you want to run for this panel, which will filter and display the results from the database specified above.
+- The SQL queries used for the chatbot Grafana dashboard can be referred to at **grafana.md**.
+
+### 4.7.2 Extra Grafana Video
+- Walks through how Grafana panels can be customized in WHERE statement to include special Grafana variables for filtering start/end periods, see **grafana.md**. 
+- To save and load Grafana dashboard: Click on the ```Settings icon``` in dashboard, go to ```JSON Model```, copy-paste the JSON code into a local file and save locally.
+- Sharing Grafana dashboard: Click on ```Share icon```, click on ```Export``` and ```Save to file```.
+- Load Grafana dashboard from a saved file: Click on ```Dashboard icon``` on the left panel --> ```Import``` --> Click on ```Upload JSON file```.
 
 ### Ollama running on Mac
 [Apple Silicon GPUs, Docker and Ollama: Pick two.](https://chariotsolutions.com/blog/post/apple-silicon-gpus-docker-and-ollama-pick-two/)
