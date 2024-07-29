@@ -203,6 +203,9 @@ pgcli -h localhost -U your_username -d course_assistant -W
 - Sharing Grafana dashboard: Click on ```Share icon```, click on ```Export``` and ```Save to file```.
 - Load Grafana dashboard from a saved file: Click on ```Dashboard icon``` on the left panel --> ```Import``` --> Click on ```Upload JSON file```.
 
+### Homework
+- Link to [homework questions](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2024/04-monitoring/homework.md).
+
 ### Ollama running on Mac
 [Apple Silicon GPUs, Docker and Ollama: Pick two.](https://chariotsolutions.com/blog/post/apple-silicon-gpus-docker-and-ollama-pick-two/)
 
