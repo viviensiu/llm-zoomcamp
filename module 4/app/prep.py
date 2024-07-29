@@ -48,6 +48,7 @@ def load_model():
 def setup_elasticsearch():
     print("Setting up Elasticsearch...")
     es_client = Elasticsearch(ELASTIC_URL)
+    print(ELASTIC_URL)
 
     index_settings = {
         "settings": {"number_of_shards": 1, "number_of_replicas": 0},
@@ -85,18 +86,18 @@ def index_documents(es_client, documents, model):
 
 
 def main():
-    print("Starting the indexing process...")
+    # print("Starting the indexing process...")
 
-    documents = fetch_documents()
-    ground_truth = fetch_ground_truth()
-    model = load_model()
-    es_client = setup_elasticsearch()
-    index_documents(es_client, documents, model)
+    # documents = fetch_documents()
+    # ground_truth = fetch_ground_truth()
+    # model = load_model()
+    # es_client = setup_elasticsearch()
+    # index_documents(es_client, documents, model)
 
-    # print("Initializing database...")
-    # init_db()
+    print("Initializing database...")
+    init_db()
 
-    # print("Indexing process completed successfully!")
+    print("Indexing process completed successfully!")
 
 
 if __name__ == "__main__":

@@ -113,9 +113,10 @@ docker run -it \
 -  psycopg2-binary: PostgreSQL database adapter for the Python programming language.
 
 **Setup**
-- Install pgcli to be able to run SQL queries in PostgreSQL via CLI.
+- ```pip install pgcli``` to be able to run SQL queries in PostgreSQL via CLI.
+- Connect to PostgreSQL via CLI using the following command, where 
 ```bash
-pip install pgcli
+pgcli -h <postgres db host address> -U <db username> -d <db name> -W <Force password prompt>
 pgcli -h localhost -U your_username -d course_assistant -W
 ```
 - .env: Stores env variables for PostgreSQL, Elastic Search, Ollama, Streamlit, embedding model and index name.
@@ -124,11 +125,36 @@ pgcli -h localhost -U your_username -d course_assistant -W
 - requirements.txt: contains list of packages required for the Streamlit chatbot.
 
 **Initialization**
-* One-time execution of ```prep.py```
-* Run ```docker-compose up```, which will:
+* As there are multiple versions of docker-compose files for Module 4, we want to specify a particular docker-compose file to bring up for Module 4.6 and 4.7, which is located at ```/module 4/app/docker-compose.yml```, hence we will navigate to the sub directory /module 4/app/, and execute ```docker compose up```, which will:
     - Initialise the required containers: elasticsearch, ollama, postgres, grafana.
     - Build an image based on Dockerfile.
     - Create a Docker container for the Streamlit chatbot, and install required Python packages listed in requirements.txt.
+* If docker compose up is successful, you can  run ```docker ps``` to see 5 containers streamlit, elasticsearch, ollama, postgres, grafana.
+* One-time execution of ```prep.py``` for the following code block (can be done outside of streamlit container):
+```python
+    print("Starting the indexing process...")
+
+    documents = fetch_documents()
+    ground_truth = fetch_ground_truth()
+    model = load_model()
+    es_client = setup_elasticsearch()
+    index_documents(es_client, documents, model)
+```
+* One-time execution of ```python prep.py``` within Streamlit container (access using ```docker exec -it streamlit /bin/bash```) for the following code block:
+```python
+    print("Initializing database...")
+    init_db()
+
+    print("Indexing process completed successfully!")
+```
+    Note that if this code chunk is commented out in the Streamlit container's codes, you will need to
+    1. Bring down Streamlit container ```docker compose down streamlit ```.
+    2. Rebuild Streamlit container ```docker compose build streamlit```.
+    3. Bring up Streamlit container ```docker compose up streamlit ```.
+* One-time execution to pull phi3 model into Ollama container:
+    1. ```docker exec -it ollama /bin/bash```
+    2. ```ollama pull phi3```
+
 
 **Chatbot Modules**
 - prep.py: One-time initialization to setup Elastic Search index.
