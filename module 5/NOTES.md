@@ -1,6 +1,7 @@
 ## Module 5: LLM Orchestration
 **Credits**
-All files and folders under ```rag-project``` are cloned from [this rep]o(https://github.com/mage-ai/rag-project)
+- Shout out to Tommy Dang for creating and providing the lessons of this module. All files and folders under ```rag-project``` are cloned from [this rep]o(https://github.com/mage-ai/rag-project)
+- All module 5 videos and notebook links can be found [here](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/05-orchestration/README.md).
 
 ### Pre-requisites
 - Clone the Module 5 repo to local folder.
@@ -19,3 +20,12 @@ cd rag-project
 ./scripts/start.sh
 ```
 - Verify that ```start.sh``` completed successfully by checking Mage at [http://localhost:6789/](http://localhost:6789/)
+- For more setup information, refer to these [instructions](https://docs.mage.ai/getting-started/setup#docker-compose-template).
+
+### 5.0 Module overview
+- How to use Mage to manage RAG orchestration, particularly in data preparation: ingest > transform > storing.
+- To create a pipeline in Mage, 
+    1. Go to ```+ New Pipeline --> Retrieval Augmented Generation```.
+    2. There are 2 main pipelines for this: Data Preparation and Inference (handles user prompts).
+    3. Data Preparation: 4 stages, load (ingesting data), transform (chunking, tokenising, embedding data), export (save to vector db), index (optimise by indexing data in vector db for efficient search)
+- To view all created pipelines, click on ```Pipelines``` on main page. To open a pipeline, right click and select ```Open Pipeline```.
