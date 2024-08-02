@@ -29,3 +29,11 @@ cd rag-project
     2. There are 2 main pipelines for this: Data Preparation and Inference (handles user prompts).
     3. Data Preparation: 4 stages, load (ingesting data), transform (chunking, tokenising, embedding data), export (save to vector db), index (optimise by indexing data in vector db for efficient search)
 - To view all created pipelines, click on ```Pipelines``` on main page. To open a pipeline, right click and select ```Open Pipeline```.
+
+### 5.1 Ingest
+Steps:
+1. From ```+ New Pipeline --> Retrieval Augmented Generation```, click on ```Load --> Go --> Ingest --> Go```.
+2. ```Ingest --> Add blocks```: As we have ingested data from Github in previous modules, we will select ```API Data loader``` to fetch the data. 
+3. ```API Data loader```: Copy-paste this [url](https://raw.githubusercontent.com/DataTalksClub/llm-zoomcamp/main/01-intro/documents.json) under ```Endpoint URL```, then click ```Run```.
+4. We can then see the output by clicking on ```Load output results```.
+5. To look at the code running under ```API Data loader```, go back to ```API Data loader``` and click on ```Edit``` which also allows you to customise the code.
