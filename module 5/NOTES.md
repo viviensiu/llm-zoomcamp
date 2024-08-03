@@ -1,6 +1,6 @@
 ## Module 5: LLM Orchestration
 **Credits**
-- Shout out to Tommy Dang for creating and providing the lessons of this module. All files and folders under ```rag-project``` are cloned from [this repo](https://github.com/mage-ai/rag-project).
+- Shout out to [Tommy Dang](https://github.com/tommydangerous) of [MageAI](https://github.com/mage-ai) for creating and providing the lessons of this module. All files and folders under ```rag-project``` are cloned from [this repo](https://github.com/mage-ai/rag-project).
 - All module 5 videos and notebook links can be found [here](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/05-orchestration/README.md).
 
 ### Pre-requisites
