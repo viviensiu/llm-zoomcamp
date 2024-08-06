@@ -40,7 +40,13 @@ Steps:
 
 ### 5.2 Chunk
 Steps:
-1. (Continuing from 5.1 where our data is loaded into the API Data Loader). Go to the top bar where you can see ```Data Preparation | Load | Ingest``` and click on ```Load --> Transform --> Chunking'''
+1. (Continuing from 5.1 where our data is loaded into the API Data Loader). Go to the top bar where you can see ```Data Preparation | Load | Ingest``` and click on ```Load --> Transform --> Chunking```
 2. Click on ```Chunking --> Add Block --> Custom Code```. There are many existing chunking methods provided by Mage but as our data source is sort-of chunked already by "Question", "Course", "Answer", hence we will use our [custom code](https://github.com/mage-ai/rag-project/blob/master/llm/rager/transformers/radiant_photon.py) to perform chunking.
 3. Copy-paste to replace the [custom code](https://github.com/mage-ai/rag-project/blob/master/llm/rager/transformers/radiant_photon.py) inside this block, and click on the purple run button. Once it finishes execution, you should see something that shows ```Documents: 948```.
 4. If you look at the output from Step 3, It shows that the custom code is combining the course, section, question and answer into a single chunk (separated by line break) for each document, and each chunk has a document id that will be used for retrieval at a later stage.
+
+### 5.3 Tokenization
+1. (Continuing from 5.2 where our data is chunked). Go to top bar ```Data Preparation | Transform | Chunking``` and click on ```Transform --> Tokenization```.
+2. Click on ```Tokenization --> Add Block```. There are multiple tokenization strategies made available here, for our use case we will choose ```Lemmatization(spaCY)```.
+3. We will replace the existing code with our [custom code](https://github.com/mage-ai/rag-project/blob/master/llm/rager/transformers/vivid_nexus.py) as we would like to include progress printing during tokenization. Click on ```Edit``` and copy-paste the [custom code](https://github.com/mage-ai/rag-project/blob/master/llm/rager/transformers/vivid_nexus.py) inside. Click on the purple run button.
+4. Once tokenization is completed, we can see there's a new column "tokens" containing a list of tokens generated from the text chunk.
