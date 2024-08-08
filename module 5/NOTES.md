@@ -50,3 +50,9 @@ Steps:
 2. Click on ```Tokenization --> Add Block```. There are multiple tokenization strategies made available here, for our use case we will choose ```Lemmatization(spaCY)```.
 3. We will replace the existing code with our [custom code](https://github.com/mage-ai/rag-project/blob/master/llm/rager/transformers/vivid_nexus.py) as we would like to include progress printing during tokenization. Click on ```Edit``` and copy-paste the [custom code](https://github.com/mage-ai/rag-project/blob/master/llm/rager/transformers/vivid_nexus.py) inside. Click on the purple run button.
 4. Once tokenization is completed, we can see there's a new column "tokens" containing a list of tokens generated from the text chunk.
+
+### 5.4 Embedding
+1. (Continuing from 5.3 where our data is tokenized). Go to top bar ```Data Preparation | Transform | Tokenization``` and click on ```Transform --> Embed```.
+2. Under ```Add Block```, there are a multitude of embedding methods for selection (depends on your use case).
+3. We will be using ```spaCy Embeddings```. Copy-paste the [code chunk](https://github.com/mage-ai/rag-project/blob/master/llm/rager/transformers/prismatic_axiom.py) inside the block and execute as usual.
+4. Once it's done, we can see that there's a new field ```embedding``` created, which contains the vector of embeddings and its dimensions depend on the choice of embedding method used.
