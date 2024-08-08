@@ -56,3 +56,11 @@ Steps:
 2. Under ```Add Block```, there are a multitude of embedding methods for selection (depends on your use case).
 3. We will be using ```spaCy Embeddings```. Copy-paste the [code chunk](https://github.com/mage-ai/rag-project/blob/master/llm/rager/transformers/prismatic_axiom.py) inside the block and execute as usual.
 4. Once it's done, we can see that there's a new field ```embedding``` created, which contains the vector of embeddings and its dimensions depend on the choice of embedding method used.
+
+### 5.5 Export
+1. This is the final stage in data preparation as we will export our chunked and embedded data into a vector database.
+2. (Continuing from 5.4 where our data is tokenized). Go to top bar ```Data Preparation | Transform | Embed``` and click on ```Transform --> Export --> Vector Database```.
+3. As we have used ```ElasticSearch``` in previous modules, we will use this as the Vector DB.
+4. As we are running ES from a Docker container, we will update the ```Connection string``` to use the service name of the elasticsearch service inside docker compose file, followed by the port as the connection string, e.g ```<docker-compose-service-name><port>```. For our case, it's [http://elasticsearch:9200](http://elasticsearch:9200).
+5. We also copy-paste the codes from this [source](https://github.com/mage-ai/rag-project/blob/master/llm/rager/data_exporters/numinous_fission.py) into the code block. Now we are ready to export our processed data.
+6. After running it we shouldn't expect any output since this is indexing our processed data into an ES Index.
