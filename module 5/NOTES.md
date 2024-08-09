@@ -60,7 +60,30 @@ Steps:
 ### 5.5 Export
 1. This is the final stage in data preparation as we will export our chunked and embedded data into a vector database.
 2. (Continuing from 5.4 where our data is tokenized). Go to top bar ```Data Preparation | Transform | Embed``` and click on ```Transform --> Export --> Vector Database```.
-3. As we have used ```ElasticSearch``` in previous modules, we will use this as the Vector DB.
-4. As we are running ES from a Docker container, we will update the ```Connection string``` to use the service name of the elasticsearch service inside docker compose file, followed by the port as the connection string, e.g ```<docker-compose-service-name><port>```. For our case, it's [http://elasticsearch:9200](http://elasticsearch:9200).
+3. As we have used ```Elasticsearch``` in previous modules, we will use this as the Vector DB.
+4. As we are running ES from a Docker container, we will update the ```Connection string``` to use the service name of the Elasticsearch service inside docker compose file, followed by the port as the connection string, e.g ```<docker-compose-service-name><port>```. For our case, it's [http://elasticsearch:9200](http://elasticsearch:9200).
 5. We also copy-paste the codes from this [source](https://github.com/mage-ai/rag-project/blob/master/llm/rager/data_exporters/numinous_fission.py) into the code block. Now we are ready to export our processed data.
 6. After running it we shouldn't expect any output since this is indexing our processed data into an ES Index.
+
+### 5.6 Retrieval
+1. Here we would like to perform queries on the Elasticsearch Index created previous.
+2. Click on the top bar. Go to ```Inference --> Retrieval --> Iterative retrieval```.
+3. Click on ```Add block --> Elasticsearch```, update the connection string to mimic Module 5.5, which is ```http://elasticsearch:9200```.
+4. Click on ```Edit``` and copy-paste this [code](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/05-orchestration/code/06_retrieval.py) into the code block. This code contains a sample embedding which we will use as a search query to generate a search result from the ES Index, note that this is for demonstration purpose only. In a normal situation, the search query would be a user text input which are then embedded before sent to the ES Index.
+5. Execute the code block. The search results is available under ```output```.
+
+### 5.7 Trigger
+1. Automation is key to maintaining and updating your system. This section demonstrates how to schedule and trigger daily runs for your data pipelines, ensuring up-to-date and consistent data processing.
+2. Click on the ```Pipeline``` button on top bar and locate the list of pipelines you have. Click on the ```name of the pipeline``` you want to schedule.
+3. Click on ```New trigger```. Select ```Schedule````.
+4. Fill in the following:
+    * Trigger name: Daily document refresh.
+    * Frequency: daily.
+    * Start date and time: a date in the past.
+    * Run settings --> ```timeout for each run```: 3600 (an hour), ```status for runs that exceed timeout``` to ```failed```, tick the checkbox for ```Skip run if previous run still in progress``` and ```Create initial pipeline run if start date is before current execution period```.
+5. Click on ```Save changes```. And ```Enable trigger```. It will start running in a few seconds.
+6. You will notice that the pipeline failed as we had a test block from module 5.6 to test the retrieval. To fix this, go to the top bar and click on your pipeline name. Then right click on it and select ```Open pipeline```.
+7. Go into ```Inference --> Retrieval --> Iterative Retrieval```. Right-click on the block inside and select ```Remove from pipeline```. **Note**: if you see some kind of error message, just dismiss it and refresh the webpage. The ```Iterative Retrieval``` block should contain no blocks after this.
+8. Now, go back to your pipeline and your trigger ```Daily document refresh``` using the ```Pipeline``` button on top bar.
+9. Click on ```Failed``` status and click on ```Retry run```.
+
