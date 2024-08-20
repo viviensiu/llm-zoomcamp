@@ -13,6 +13,7 @@ Recap of key concepts in a RAG system:
     * From the DB, retrieve top K documents relevant to the question.
     * Augment the question prompt with context (top K documents) and pass it to LLM.
     * LLM returns the answer.
+
 Techniques to improve RAG pipeline:
 * Small-to-big chunk:
     * Problem of choosing the right chunk size as: Large chunk sizes may generate too much noise in the embeddings and cause the information retrieval step to perform poorly since we're unable to retrieve the relevant info due to noise. Small chunk size may cause the retrieved context to be incomplete, therefore causing incomplete responses by the LLM.
