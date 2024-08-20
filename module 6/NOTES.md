@@ -27,3 +27,24 @@ Techniques to improve RAG pipeline:
 * Document reranking:
     * Documents with the highest embedding similarity may not be most relevant.
     * Hence, an option is to rerank the retrieved document chunks, e.g. using LLM, and then use the top reranked chunks as context for the LLM.
+
+### 6.2 Hybrid search
+* Uses a combination of vector-based search and keyword-based search to produce results.
+* Hybrid Search is ranked using hybrid_score $= (1-\alpha) *$ match_score + $\alpha *$ vec_score, where $\alpha \in [0,1]$.
+* We will use notebooks from module 3 to cover vector search and its evaluation method in the hybrid search.
+* We will also refer to [Elasticsearch guidelines to setup hybrid search](https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search.html#_combine_approximate_knn_with_other_features).
+* [Elasticsearch Hybrid Search tutorial: Combined Full-Text and kNN Results](https://www.elastic.co/search-labs/tutorials/search-tutorial/vector-search/hybrid-search)
+* Start Elasticsearch container first:
+```bash
+docker run -it \
+    --name elasticsearch \
+    -p 9200:9200 \
+    -p 9300:9300 \
+    -e "discovery.type=single-node" \
+    -e "xpack.security.enabled=false" \
+    docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+```
+* Steps:
+    * Modify the ES search functions to use hybrid search.
+    * Run hybrid search on ground truth data and evaluate using Hit Rate and Mean Reciprocal Rank.
+    * Compare hybrid search evaluation results with Module 3's vector search evaluation results.
