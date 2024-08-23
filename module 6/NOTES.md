@@ -34,7 +34,7 @@ Recap of key concepts in a RAG system:
 * Hybrid Search is ranked using hybrid_score $= (1-\alpha) *$ match_score + $\alpha *$ vec_score, where $\alpha \in [0,1]$.
 * We will use notebooks from module 3 to cover vector search and its evaluation method in the hybrid search.
 * We will also refer to [Elasticsearch guidelines to setup hybrid search](https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search.html#_combine_approximate_knn_with_other_features).
-* [Elasticsearch Hybrid Search tutorial: Combined Full-Text and kNN Results](https://www.elastic.co/search-labs/tutorials/search-tutorial/vector-search/hybrid-search)
+* [Elasticsearch Hybrid Search tutorial: Combined Full-Text and kNN Results](https://www.elastic.co/search-labs/tutorials/search-tutorial/vector-search/hybrid-search).
 * Start Elasticsearch container first:
 ```bash
 docker run -it \
@@ -58,10 +58,10 @@ docker run -it \
     * Ask the LLM to rerank our chunks.
     * Ask the LLM to use the context (from reranked chunks) to generate the response back to user.
 * Naturally the relevance scores should be evaluated based on some metrics, e.g.:
-    * [NDCG](https://www.evidentlyai.com/ranking-metrics/ndcg-metric#:~:text=Normalized%20Discounted%20Cumulative%20Gain%20(NDCG)%20is%20a%20ranking%20quality%20metric,DCG%20representing%20a%20perfect%20ranking.)
-    * [MAP@K](https://www.evidentlyai.com/ranking-metrics/mean-average-precision-map)
-    * Reciprocal Rank Fusion (RRF)
-    * etc
+    * [NDCG](https://www.evidentlyai.com/ranking-metrics/ndcg-metric#:~:text=Normalized%20Discounted%20Cumulative%20Gain%20(NDCG)%20is%20a%20ranking%20quality%20metric,DCG%20representing%20a%20perfect%20ranking.).
+    * [MAP@K](https://www.evidentlyai.com/ranking-metrics/mean-average-precision-map).
+    * Reciprocal Rank Fusion (RRF).
+    * etc.
 * The reason why cosine similarity is not used here is because of we're using hybrid search instead of just vector search, therefore we will apply Reciprocal Rank Fusion (RRF) metrics to our reranking strategy.
 * Elasticsearch has a built-in RRF within the search query. See here on ["How RRF works"](https://www.elastic.co/search-labs/tutorials/search-tutorial/vector-search/hybrid-search#how-rrf-works). 
 * **Note**: The RRF feature is only available in Platinum/Enterprise version of Elasticsearch ([subscription](https://www.elastic.co/subscriptions) required), from version 8.9 and later. If you have this version, you will need to switch to use the following ES container instead:
@@ -77,10 +77,10 @@ docker run -it \
     docker.elastic.co/elasticsearch/elasticsearch:8.9.0
 ```
 * **Note**: It is also possible to integrate external reranking models such as [Cohere's Rerank 3 model](https://www.elastic.co/search-labs/blog/elasticsearch-cohere-rerank) but for this module we will stick to something simple.
-* Also read [Reciprocal rank fusion](https://www.elastic.co/guide/en/elasticsearch/reference/current/rrf.html)
+* Also read [Elasticsearch's Reciprocal rank fusion guide](https://www.elastic.co/guide/en/elasticsearch/reference/current/rrf.html) and [RRF research paper](https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf).
 * Steps for own implementation of RRF metric:
     * The ES search results are already ranked from most to least relevant.
-    * For the list of results, assign ranking constant $k$ of each result using enumerate() and calculate the score using this formula:
-        score $+= 1.0 / ( k + \text{rank}( \text{result(q)}, d ) )$
+    * For the list of results, assign ranking constant $k$ of each result using enumerate() and calculate score using this formula:
+        <br>score $+= 1.0 / ( k + \text{rank}( \text{result(q)}, d ) )$
     * Note that score is incremented for results coming from same document $d$.
     * Rerank all results based on their scores and return the top $n$ results.
