@@ -86,3 +86,6 @@ docker run -it \
         <br>score $+= 1.0 / ( k + \text{rank}( \text{result(q)}, d ) )$
     * Note that score is incremented for results coming from same document $d$.
     * Rerank all results based on their scores and return the top $n$ results.
+
+### Homework
+No homework for Module 6.
