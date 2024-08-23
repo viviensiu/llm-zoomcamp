@@ -28,6 +28,8 @@ Recap of key concepts in a RAG system:
 * **Document reranking**:
     * Documents with the highest embedding similarity may not be most relevant.
     * Hence, an option is to rerank the retrieved document chunks, e.g. using LLM, and then use the top reranked chunks as context for the LLM.
+* **References**:
+    * [Five Techniques for Improving RAG Chatbots - Nikita Kozodoi](https://www.youtube.com/watch?v=xPYmClWk5O8).
 
 ### 6.2 Hybrid search
 * Uses a combination of vector-based search and keyword-based search to produce results.

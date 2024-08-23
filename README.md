@@ -22,6 +22,7 @@ Repo for my LLM-zoomcamp course materials.
 ## Recommended reading materials
 - [Introduction to Information Retrieval](https://nlp.stanford.edu/IR-book/information-retrieval-book.html)
 - [Mining of Large Datasets](http://www.mmds.org/)
+- [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997)
 
 ## Open-source LLM
 - Alexey's video discussing on OpenAI alternatives. [Link](https://www.loom.com/share/a3f59ebe0ea54c9d996db3113bdabc02)
