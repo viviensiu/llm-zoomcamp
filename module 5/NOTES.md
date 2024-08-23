@@ -87,3 +87,5 @@ Steps:
 8. Now, go back to your pipeline and your trigger ```Daily document refresh``` using the ```Pipeline``` button on top bar.
 9. Click on ```Failed``` status and click on ```Retry run```.
 
+### Homework
+- Link to [homework questions](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2024/05-orchestration/homework.md)
